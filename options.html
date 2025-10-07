@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetHub Options</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .label-help {
+      font-weight: normal;
+      color: #666;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    input[type="password"] {
+      letter-spacing: 2px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: white;
+      flex: 1;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #0056b3;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #545b62;
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .help-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .help-section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .help-section p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .help-section ol {
+      color: #666;
+      font-size: 14px;
+      margin-left: 20px;
+    }
+
+    .help-section li {
+      margin-bottom: 8px;
+    }
+
+    .help-section a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .help-section a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ LeetHub Configuration</h1>
+    <p class="subtitle">Connect your GitHub repository to automatically save LeetCode solutions</p>
+
+    <form id="optionsForm">
+      <div class="form-group">
+        <label for="token">
+          GitHub Personal Access Token (PAT)
+          <span class="label-help">— keep this private!</span>
+        </label>
+        <input 
+          type="password" 
+          id="token" 
+          name="token" 
+          placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="owner">
+          Repository Owner
+          <span class="label-help">— your GitHub username or org</span>
+        </label>
+        <input 
+          type="text" 
+          id="owner" 
+          name="owner" 
+          placeholder="octocat"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="repo">
+          Repository Name
+          <span class="label-help">— must already exist</span>
+        </label>
+        <input 
+          type="text" 
+          id="repo" 
+          name="repo" 
+          placeholder="leetcode-solutions"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="branch">
+          Branch
+          <span class="label-help">— target branch for commits</span>
+        </label>
+        <input 
+          type="text" 
+          id="branch" 
+          name="branch" 
+          placeholder="main"
+          value="main"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="rootFolder">
+          Root Folder
+          <span class="label-help">— path prefix for all solutions</span>
+        </label>
+        <input 
+          type="text" 
+          id="rootFolder" 
+          name="rootFolder" 
+          placeholder="leethub/"
+          value="leethub/"
+        >
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary">💾 Save Settings</button>
+        <button type="button" id="testButton" class="btn-secondary">🧪 Test GitHub</button>
+      </div>
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <div class="help-section">
+      <h2>📖 How to Get a GitHub Personal Access Token</h2>
+      <ol>
+        <li>Go to <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)</a></li>
+        <li>Click "Generate new token (classic)"</li>
+        <li>Give it a descriptive name like "LeetHub Extension"</li>
+        <li>Select scopes:
+          <ul>
+            <li><code>public_repo</code> (for public repositories)</li>
+            <li><code>repo</code> (for private repositories)</li>
+          </ul>
+        </li>
+        <li>Click "Generate token" and copy it immediately</li>
+        <li>Paste the token in the field above</li>
+      </ol>
+      <p><strong>Note:</strong> The repository must already exist on GitHub. LeetHub will not create it for you.</p>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
+

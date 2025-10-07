@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "LeetHub",
+  "version": "1.0.0",
+  "description": "Automatically push your accepted LeetCode solutions to GitHub",
+  
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "https://leetcode.com/*",
+    "https://api.github.com/*"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "LeetHub"
+  },
+  
+  "options_page": "options.html",
+  
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
+
