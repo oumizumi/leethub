@@ -58,7 +58,8 @@
       margin-left: 4px;
     }
 
-    input {
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid #ddd;
@@ -67,14 +68,21 @@
       font-family: 'Monaco', 'Courier New', monospace;
     }
 
-    input:focus {
+    input[type="text"]:focus,
+    input[type="password"]:focus {
       outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+      border-color: #4a4a4a;
+      box-shadow: 0 0 0 3px rgba(74, 74, 74, 0.1);
     }
 
     input[type="password"] {
       letter-spacing: 2px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+      cursor: pointer;
     }
 
     .button-group {
@@ -99,13 +107,13 @@
     }
 
     .btn-primary {
-      background: #007bff;
+      background: #4a4a4a;
       color: white;
       flex: 1;
     }
 
     .btn-primary:hover:not(:disabled) {
-      background: #0056b3;
+      background: #5a5a5a;
     }
 
     .btn-secondary {
@@ -170,8 +178,9 @@
     }
 
     .help-section a {
-      color: #007bff;
+      color: #4a4a4a;
       text-decoration: none;
+      font-weight: 600;
     }
 
     .help-section a:hover {
@@ -189,7 +198,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>⚙️ LeetHub Configuration</h1>
+    <h1>LeetHub Configuration</h1>
     <p class="subtitle">Connect your GitHub repository to automatically save LeetCode solutions</p>
 
     <form id="optionsForm">
@@ -263,16 +272,53 @@
         >
       </div>
 
+      <div class="form-group">
+        <label for="commitTemplate">
+          Custom Commit Message Template
+          <span class="label-help">— optional, use {title}, {language}, {difficulty}</span>
+        </label>
+        <input 
+          type="text" 
+          id="commitTemplate" 
+          name="commitTemplate" 
+          placeholder="feat: {title} ({language}) — Solved"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="autoPush" name="autoPush" checked>
+          Enable Auto-Push
+          <span class="label-help">— automatically push accepted solutions</span>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="notifications" name="notifications" checked>
+          Enable Notifications
+          <span class="label-help">— show desktop notification on successful push</span>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="debugMode" name="debugMode">
+          Debug Mode
+          <span class="label-help">— verbose console logging</span>
+        </label>
+      </div>
+
       <div class="button-group">
-        <button type="submit" class="btn-primary">💾 Save Settings</button>
-        <button type="button" id="testButton" class="btn-secondary">🧪 Test GitHub</button>
+        <button type="submit" class="btn-primary">Save Settings</button>
+        <button type="button" id="testButton" class="btn-secondary">Test GitHub</button>
       </div>
     </form>
 
     <div id="message" class="message"></div>
 
     <div class="help-section">
-      <h2>📖 How to Get a GitHub Personal Access Token</h2>
+      <h2>How to Get a GitHub Personal Access Token</h2>
       <ol>
         <li>Go to <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)</a></li>
         <li>Click "Generate new token (classic)"</li>
@@ -290,6 +336,7 @@
     </div>
   </div>
 
+  <script src="github.js"></script>
   <script src="options.js"></script>
 </body>
 </html>

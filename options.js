@@ -14,6 +14,10 @@ const ownerInput = document.getElementById('owner');
 const repoInput = document.getElementById('repo');
 const branchInput = document.getElementById('branch');
 const rootFolderInput = document.getElementById('rootFolder');
+const commitTemplateInput = document.getElementById('commitTemplate');
+const autoPushInput = document.getElementById('autoPush');
+const notificationsInput = document.getElementById('notifications');
+const debugModeInput = document.getElementById('debugMode');
 
 /**
  * Shows a message to the user
@@ -40,7 +44,11 @@ async function loadSettings() {
       'githubOwner',
       'githubRepo',
       'githubBranch',
-      'rootFolder'
+      'rootFolder',
+      'commitMessageTemplate',
+      'autoPushEnabled',
+      'notificationsEnabled',
+      'debugMode'
     ]);
     
     if (settings.githubToken) tokenInput.value = settings.githubToken;
@@ -48,6 +56,12 @@ async function loadSettings() {
     if (settings.githubRepo) repoInput.value = settings.githubRepo;
     if (settings.githubBranch) branchInput.value = settings.githubBranch;
     if (settings.rootFolder) rootFolderInput.value = settings.rootFolder;
+    if (settings.commitMessageTemplate) commitTemplateInput.value = settings.commitMessageTemplate;
+    
+    // Set checkboxes (default to true if not set)
+    autoPushInput.checked = settings.autoPushEnabled !== false;
+    notificationsInput.checked = settings.notificationsEnabled !== false;
+    debugModeInput.checked = settings.debugMode || false;
     
   } catch (error) {
     console.error('Failed to load settings:', error);
@@ -68,7 +82,11 @@ async function saveSettings(e) {
     githubOwner: ownerInput.value.trim(),
     githubRepo: repoInput.value.trim(),
     githubBranch: branchInput.value.trim() || 'main',
-    rootFolder: rootFolderInput.value.trim() || 'leethub/'
+    rootFolder: rootFolderInput.value.trim() || 'leethub/',
+    commitMessageTemplate: commitTemplateInput.value.trim(),
+    autoPushEnabled: autoPushInput.checked,
+    notificationsEnabled: notificationsInput.checked,
+    debugMode: debugModeInput.checked
   };
   
   // Validate required fields
@@ -85,11 +103,11 @@ async function saveSettings(e) {
   try {
     // Save to storage
     await chrome.storage.local.set(settings);
-    showMessage('✅ Settings saved successfully!', 'success');
+    showMessage('Settings saved successfully!', 'success');
     
   } catch (error) {
     console.error('Failed to save settings:', error);
-    showMessage('❌ Failed to save settings', 'error');
+    showMessage('Failed to save settings', 'error');
   }
 }
 
@@ -108,21 +126,21 @@ async function testGitHubConnection() {
   
   // Disable button and show loading state
   testButton.disabled = true;
-  testButton.textContent = '🔄 Testing...';
+  testButton.textContent = 'Testing...';
   
   try {
     // Test GitHub API access (from github.js)
     const repoInfo = await testGitHubAccess({ token, owner, repo });
     
     // Show success with repo details
-    const message = `✅ Connected to ${repoInfo.full_name}! ${repoInfo.private ? '🔒 Private' : '🌐 Public'}`;
+    const message = `Connected to ${repoInfo.full_name}! ${repoInfo.private ? '(Private)' : '(Public)'}`;
     showMessage(message, 'success');
     
   } catch (error) {
     console.error('GitHub test failed:', error);
     
     // Parse error message
-    let errorMsg = '❌ Connection failed: ';
+    let errorMsg = 'Connection failed: ';
     if (error.message.includes('401')) {
       errorMsg += 'Invalid token or insufficient permissions';
     } else if (error.message.includes('404')) {
@@ -138,7 +156,7 @@ async function testGitHubConnection() {
   } finally {
     // Re-enable button
     testButton.disabled = false;
-    testButton.textContent = '🧪 Test GitHub';
+    testButton.textContent = 'Test GitHub';
   }
 }
 

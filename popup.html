@@ -5,49 +5,467 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LeetHub</title>
   <style>
-    body {
-      width: 320px;
-      padding: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h2 {
-      margin: 0 0 12px 0;
-      font-size: 18px;
+
+    body {
+      width: 380px;
+      max-height: 600px;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #333;
+      background: #fff;
     }
-    .status {
-      background: #f5f5f5;
-      padding: 12px;
-      border-radius: 4px;
-      margin-bottom: 16px;
-      font-size: 13px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #007bff;
+
+    /* Header */
+    .header {
+      background: #4a4a4a;
       color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+      padding: 20px;
+      border-bottom: 3px solid #e0e0e0;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.7;
+      color: #ddd;
+    }
+
+    /* Status Section */
+    .status-section {
+      padding: 16px 20px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
       font-size: 14px;
     }
+
+    .status-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .status-label {
+      font-weight: 600;
+      color: #666;
+      width: 80px;
+      font-size: 13px;
+    }
+
+    .status-value {
+      flex: 1;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .status-connected {
+      background: #2da44e;
+      box-shadow: 0 0 0 2px rgba(45, 164, 78, 0.2);
+    }
+
+    .status-disconnected {
+      background: #999;
+      box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.15);
+    }
+
+    /* Actions */
+    .actions {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4a4a4a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
     button:hover {
-      background: #0056b3;
+      background: #5a5a5a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(74, 74, 74, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Status Message */
+    .status-message {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .status-message-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status-message-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Statistics */
+    .stats-section {
+      padding: 16px 20px;
+      border-bottom: 1px solid #ddd;
+      background: white;
+    }
+
+    .stats-header {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 12px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 12px 8px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #4a4a4a;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    /* Activity Log */
+    .log-section {
+      padding: 16px 20px;
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .log-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .refresh-button {
+      background: none;
+      border: none;
+      color: #4a4a4a;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 4px 8px;
+      width: auto;
+    }
+
+    .refresh-button:hover {
+      background: #f0f0f0;
+      transform: none;
+      box-shadow: none;
+    }
+
+    #activityLog {
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .log-item {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      background: #f5f5f5;
+      border-left: 3px solid #ddd;
+      transition: all 0.2s;
+      border: 1px solid #ddd;
+    }
+
+    .log-item:hover {
+      background: #e8e8e8;
+    }
+
+    .log-success {
+      border-left-color: #4a4a4a;
+      background: #f5f5f5;
+      border-color: #4a4a4a;
+    }
+
+    .log-error {
+      border-left-color: #888;
+      background: #f5f5f5;
+      border-color: #888;
+    }
+
+    .log-skipped {
+      border-left-color: #aaa;
+      background: #f5f5f5;
+      border-color: #aaa;
+    }
+
+    .log-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .log-success .log-icon {
+      background: #4a4a4a;
+      color: white;
+    }
+
+    .log-error .log-icon {
+      background: #888;
+      color: white;
+    }
+
+    .log-skipped .log-icon {
+      background: #aaa;
+      color: white;
+    }
+
+    .log-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .log-message {
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .log-meta {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      background: #e8e8e8;
+      color: #666;
+    }
+
+    .badge-easy {
+      background: #ddd;
+      color: #333;
+    }
+
+    .badge-medium {
+      background: #999;
+      color: white;
+    }
+
+    .badge-hard {
+      background: #4a4a4a;
+      color: white;
+    }
+
+    .log-time {
+      font-size: 11px;
+      color: #666;
+      margin-left: auto;
+    }
+
+    .log-empty {
+      text-align: center;
+      padding: 32px 20px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 12px 20px;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #4a4a4a;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer a:hover {
+      color: #666;
+    }
+
+    /* Scrollbar */
+    #activityLog::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #activityLog::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    #activityLog::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 3px;
+    }
+
+    #activityLog::-webkit-scrollbar-thumb:hover {
+      background: #999;
     }
   </style>
 </head>
 <body>
-  <h2>🚀 LeetHub</h2>
-  <div class="status">
-    <strong>Status:</strong> Ready<br>
-    <strong>Repo:</strong> <span id="repo">Not configured</span>
+  <!-- Header -->
+  <div class="header">
+    <h1>LeetHub</h1>
+    <p>Auto-sync your LeetCode solutions to GitHub</p>
   </div>
-  <button id="pushButton">Push Current Page</button>
-  <p style="margin-top: 12px; font-size: 12px; color: #666;">
-    TODO: Implement activity log
-  </p>
+
+  <!-- Status Section -->
+  <div class="status-section">
+    <div class="status-row">
+      <span class="status-label">Status:</span>
+      <span class="status-value">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Loading...</span>
+      </span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Repository:</span>
+      <span class="status-value" id="repo">-</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Branch:</span>
+      <span class="status-value" id="branch">-</span>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button id="pushButton">Push Current Page</button>
+    <div id="statusMessage" class="status-message"></div>
+  </div>
+
+  <!-- Statistics -->
+  <div class="stats-section">
+    <div class="stats-header">Statistics</div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value" id="totalSolved">0</div>
+        <div class="stat-label">Total Solved</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="easyCount">0</div>
+        <div class="stat-label">Easy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="mediumCount">0</div>
+        <div class="stat-label">Medium</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="hardCount">0</div>
+        <div class="stat-label">Hard</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity Log -->
+  <div class="log-section">
+    <div class="log-header">
+      <span class="log-title">Recent Activity</span>
+      <button id="refreshButton" class="refresh-button">Refresh</button>
+    </div>
+    <div id="activityLog">
+      <div class="log-empty">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="#" id="optionsLink">Settings</a>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
-
