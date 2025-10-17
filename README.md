@@ -2,7 +2,7 @@
 
 Automatically push your accepted LeetCode solutions to a GitHub repository. Built with vanilla JavaScript for Chrome Extension Manifest V3.
 
-## 🚀 Features
+## Features
 
 - **Automatic Detection**: Monitors LeetCode for "Accepted" submissions in real-time
 - **GitHub Integration**: Pushes solutions directly to your repository via GitHub API
@@ -102,7 +102,7 @@ Create a new repository on GitHub where your solutions will be stored. For examp
 3. Check recent activity log (last 10 actions)
 4. Click "Refresh" to update the log
 
-## 📂 Repository Structure
+##  Repository Structure
 
 Your GitHub repository will look like this:
 
@@ -121,7 +121,7 @@ leethub/
     └── Trapping Rain Water.py
 ```
 
-## 🎨 Commit Messages
+##  Commit Messages
 
 LeetHub creates meaningful commit messages:
 
@@ -157,7 +157,7 @@ Accepted at: 2025-10-07T12:34:56.789Z
 - Submission detection may delay on very slow connections
 - Some premium LeetCode features might not be fully supported
 
-## 🧪 Testing the Extension
+##  Testing the Extension
 
 ### Quick Test (5 minutes)
 
@@ -203,14 +203,14 @@ Accepted at: 2025-10-07T12:34:56.789Z
 - Check console for "Could not extract code"
 - Open an issue on GitHub with browser console logs
 
-## 🔒 Privacy & Security
+## Privacy & Security
 
 - Your GitHub token is stored **locally** in Chrome's storage (not sent anywhere except GitHub)
 - No analytics, tracking, or external servers
 - All communication is direct: Chrome ↔ LeetCode and Chrome ↔ GitHub
 - Open source - you can audit all the code
 
-## 🎯 Development Status
+##  Development Status
 
 **Current Version:** 1.0.0 (Complete!)  
 **Completion:** 100% ✅
@@ -223,7 +223,7 @@ All core features implemented:
 - ✅ Custom settings and templates
 - ✅ Icons and polished UI
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Feel free to:
 - Report bugs via GitHub Issues at https://github.com/oumizumi/leethub
@@ -234,16 +234,4 @@ Contributions are welcome! Feel free to:
 ## 📄 License
 
 MIT License - feel free to use and modify as needed.
-
-## 🙏 Acknowledgments
-
-Inspired by the original LeetHub project and the competitive programming community.
-
-Built by [@oumizumi](https://github.com/oumizumi) 🚀
-
----
-
-**Happy Coding! 🎉**
-
-Made with ❤️ for LeetCode grinders everywhere.
 
